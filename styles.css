@@ -1,0 +1,260 @@
+body {
+    position: relative; /* Asegura que ::before funcione correctamente */
+    background-color: rgb(4, 12, 99);
+    height: 300vh; /* Altura larga para permitir el scroll */
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('images/fondo cotl.jpg');
+    background-size: 120% auto;
+    background-position: top center; /* La posición inicial es en la parte superior y centrada */
+    opacity: 0.6; /* Cambia la opacidad aquí */
+    z-index: -1; /* Coloca la imagen detrás del contenido */
+}
+
+/* Estilos para los enlaces */
+a {
+    color: rgb(255, 255, 255); /* El color del enlace por defecto */
+    text-decoration: none; /* Elimina el subrayado por defecto */
+    font-weight: bold; /* Hace que el texto sea más grueso */
+}
+
+a:hover {
+    color: rgb(196, 18, 60); /* Cambia el color cuando el mouse está sobre el enlace */
+    text-decoration: underline; /* Agrega subrayado al pasar el mouse */
+    font-size: 1.6em; /* Aumenta ligeramente el tamaño del texto */
+    transition: all 0.3s ease; /* Transición suave en el cambio de estilo */
+}
+
+/* Cambiar el color del texto del h2 */
+h2 {
+    color: rgb(252, 226, 132); /* Cambia el color del texto */
+    font-family: 'courier new', courier;
+    font-size: 1.9em;
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.5s ease; /* Transición suave */
+}
+
+h3 {
+    color: rgb(70, 230, 195); /* Cambia el color del texto */
+    font-family: 'courier new', courier;
+    font-size: 1.8em;
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.5s ease; /* Transición suave */
+}
+
+/* Estilo del párrafo */
+p {
+    color: rgb(255, 255, 255); /* Cambia el color del texto a blanco */
+    font-family: 'Verdana', courier;
+    font-size: 1.3em;
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.5s ease; /* Transición suave */
+}
+
+/* Animación para que el texto aparezca */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px); /* Desplaza el texto hacia abajo al principio */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Regresa a su posición original */
+    }
+}
+
+/* Aplica la animación a los elementos con la clase fade-in */
+.fade-in {
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeInUp 1s ease forwards; /* Aplica la animación */
+}
+
+/* Especificar los tiempos de aparición de cada elemento */
+h2:nth-of-type(1).fade-in {
+    animation-delay: 0.3s;
+}
+h2:nth-of-type(2).fade-in {
+    animation-delay: 0.5s;
+}
+p:nth-of-type(1).fade-in {
+    animation-delay: 0.7s;
+}
+p:nth-of-type(2).fade-in {
+    animation-delay: 0.9s;
+}
+
+/* Animación de entrada */
+.fade-in {
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(30px); /* Se desplaza hacia abajo inicialmente */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transiciones suaves */
+}
+
+.fade-in.visible {
+    opacity: 1; /* Se vuelve visible */
+    transform: translateY(0); /* Regresa a su posición original */
+}
+
+/* Estilo del título de la galería */
+.gallery-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+/* Especifica el tiempo de aparición para las imágenes, si deseas */
+img.fade-in:nth-of-type(1) {
+    animation-delay: 0.2s; /* Ajusta el retardo según sea necesario */
+}
+
+.round-image {
+    width: 250px; /* Asegúrate de que la imagen tenga el mismo ancho y alto para ser perfectamente redonda */
+    height: 250px; /* Establece la altura igual al ancho */
+    border-radius: 50%; /* Hace la imagen redonda */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+}
+
+.block-image {
+    width: 300px; /* Asegúrate de que la imagen tenga el mismo ancho y alto para ser perfectamente redonda */
+    height: 300px; /* Establece la altura igual al ancho */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    border: 5px solid rgb(164, 7, 54); /* Agrega un borde blanco de 5px */
+    box-shadow: 0 0 10px rgba(68, 0, 29, 0.93);
+}
+
+.image-container {
+    position: relative; /* Necesario para posicionar la vista previa */
+    display: inline-block; /* Permite centrar el contenedor */
+    margin: 10px; /* Espaciado entre imágenes */
+}
+
+.preview-image {
+    display: none; /* Oculta la vista previa inicialmente */
+    position: absolute; /* Posiciona la vista previa sobre el contenedor */
+    top: 50%; /* Mueve al centro verticalmente */
+    left: 50%; /* Mueve al centro horizontalmente */
+    transform: translate(-50%, -50%) scale(0.8); /* Muestra más pequeña inicialmente */
+    width: 450px; /* Ajusta el tamaño de la vista previa */
+    height: 450px; /* Mantiene proporciones iguales */
+    border-radius: 10px; /* Esquinas redondeadas */
+    overflow: visible; /* Asegura que la imagen no se desborde */
+    z-index: 1; /* Asegura que esté encima */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro para mejor contraste */
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra para mejor definición */
+}
+
+.preview-image img {
+    width: auto; /* Ajusta el ancho automáticamente */
+    height: 100%; /* Mantiene proporciones iguales */
+    max-width: none; /* Asegura que la imagen no esté limitada en el ancho */
+    object-fit: contain; /* Asegura que la imagen se ajuste sin recortes */
+}
+
+.image-container:hover .preview-image {
+    display: block; /* Muestra la vista previa al pasar el mouse */
+    opacity: 1; /* La vista previa se vuelve visible */
+    transform: translate(-50%, -50%) scale(1); /* Regresa al tamaño original */
+}
+
+/* Lightbox */
+/* Estilos del Lightbox, sin cambios mayores */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.lightbox:target {
+    display: flex;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Botones de navegación del Lightbox */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    user-select: none; /* Evita selección de texto al hacer clic */
+}
+
+.lightbox-prev {
+    left: 30px;
+}
+
+.lightbox-next {
+    right: 30px;
+}
+
+#caption {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
