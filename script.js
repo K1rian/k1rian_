@@ -52,6 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    document.addEventListener('keydown', function(event) {
+        if (lightbox.style.display === 'flex') {
+            if (event.key === 'ArrowLeft') {
+                showPrev();
+            } else if (event.key === 'ArrowRight') {
+                showNext();
+            } else if (event.key === 'Escape') {
+                closeLightbox();
+            }
+        }
+    });
+
     closeBtn.addEventListener('click', closeLightbox);
     prevBtn.addEventListener('click', showPrev);
     nextBtn.addEventListener('click', showNext);
